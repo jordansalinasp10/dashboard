@@ -31,7 +31,6 @@ let plot = (data) => {
         barThickness: 6,
          maxBarThickness: 8,
         minBarLength: 2,
-        
       
       },
     ],
@@ -59,9 +58,26 @@ let load = (data) =>{
 
   } else {
     load(JSON.parse(meteo))
-
   }
 };
+
+let loadInocar = () => {
+  let URL_proxy = 'https://cors-anywhere.herokuapp.com/';
+  let URL = URL_proxy + 'https://www.inocar.mil.ec/mareas/consultan.php';
+  fetch(URL)
+     	.then(response => response.text())
+        .then(data => {
+           const parser = new DOMParser();
+           const xml = parser.parseFromString(data, "text/html");
+           console.log(xml);
+           let URL_proxy = 'https://cors-anywhere.herokuapp.com/';
+           let URL = URL_proxy + 'https://www.inocar.mil.ec/mareas/consultan.php';
+           let contenedorMareas = xml.getElementsByClassName('container-fluid')[0];
+           let contenedorHTML = document.getElementById("cont-tabla");
+           contenedorHTML.innerHTML = contenedorMareas.innerHTML;
+        })
+        .catch(console.error);
+}
 (
   function () {
   let URL =
@@ -73,9 +89,11 @@ let load = (data) =>{
       // let timezone = data[timezone];
       // let tzhtml = document.getElementById("zonetime");
       // tzhtml.innerHTML =timezone
-      plot(data)
-      plot2(data)
-      load(data)
+      loadInocar();
+      plot(data);
+      plot2(data);
+      load(data);
+      
     })
     .catch(console.error);
 })();
