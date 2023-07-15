@@ -26,10 +26,12 @@ let loadcard = (data) => {
   let temperatura = data.current_weather.temperature
   let velocidadViento= data.current_weather.windspeed
   let latitud = data['latitude']
+  let fecha = data.current_weather.time
   document.querySelector('#timezone').textContent = timezone
   document.querySelector('#temperatura').textContent = temperatura + " °C"
   document.querySelector('#vientos').textContent = velocidadViento + "km/h"
   document.querySelector('#latitud').textContent = latitud 
+  document.querySelector('#fecha').textContent = "Fecha y hora de actualización: " + fecha 
 };
 
  let plot2 = (data) => {
