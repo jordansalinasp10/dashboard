@@ -5,7 +5,7 @@ let plot = (data) => {
     labels: data.hourly.time /* ETIQUETA DE DATOS */,
     datasets: [
       {
-        label: "Temperatura semanal" /* ETIQUETA DEL GRÁFICO */,
+        label: "Grados Celsius (°C)" /* ETIQUETA DEL GRÁFICO */,
         data: data.hourly.temperature_2m /* ARREGLO DE DATOS */,
         fill: false,
         borderColor: "rgb(75, 192, 192)",
@@ -40,7 +40,7 @@ let loadcard = (data) => {
     labels: data.daily.time /* ETIQUETA DE DATOS */,
      datasets: [
       {
-      label: "UV" /* ETIQUETA DEL GRÁFICO */,
+      label: "Índice UV"     /* ETIQUETA DEL GRÁFICO */,
        data: data.daily.uv_index_max/* ARREGLO DE DATOS */,
         barThickness: 6,
          maxBarThickness: 8,
