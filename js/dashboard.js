@@ -1,3 +1,4 @@
+
 let plot = (data) => {
   const ctx = document.getElementById("chart1");
   const dataset = {
@@ -19,6 +20,17 @@ let plot = (data) => {
   const chart = new Chart(ctx, config)
 };
 
+let loadcard = (data) => {
+
+  let timezone =data['timezone']
+  let temperatura = data.current_weather.temperature
+  let velocidadViento= data.current_weather.windspeed
+  let latitud = data['latitude']
+  document.querySelector('#timezone').textContent = timezone
+  document.querySelector('#temperatura').textContent = temperatura + " °C"
+  document.querySelector('#vientos').textContent = velocidadViento + "km/h"
+  document.querySelector('#latitud').textContent = latitud 
+};
 
  let plot2 = (data) => {
   const ctx = document.getElementById("chart2");
@@ -44,7 +56,7 @@ let plot = (data) => {
 let load = (data) =>{
   let meteo = localStorage.getItem('meteo');
   if(meteo == null) {
-    let URL = "https://api.open-meteo.com/v1/forecast?latitude=-2.20&longitude=-79.89&hourly=temperature_2m&daily=uv_index_max&timezone=auto";
+    let URL = "https://api.open-meteo.com/v1/forecast?latitude=-2.1962&longitude=-79.8862&hourly=temperature_2m&daily=uv_index_max&current_weather=true&timezone=auto";
         
     fetch(URL)
     .then(response => response.json())
@@ -70,8 +82,7 @@ let loadInocar = () => {
            const parser = new DOMParser();
            const xml = parser.parseFromString(data, "text/html");
            console.log(xml);
-           let URL_proxy = 'https://cors-anywhere.herokuapp.com/';
-           let URL = URL_proxy + 'https://www.inocar.mil.ec/mareas/consultan.php';
+      
            let contenedorMareas = xml.getElementsByClassName('container-fluid')[0];
            let contenedorHTML = document.getElementById("cont-tabla");
            contenedorHTML.innerHTML = contenedorMareas.innerHTML;
@@ -81,14 +92,12 @@ let loadInocar = () => {
 (
   function () {
   let URL =
-    "https://api.open-meteo.com/v1/forecast?latitude=-2.20&longitude=-79.89&hourly=temperature_2m&daily=uv_index_max&timezone=auto";
+  "https://api.open-meteo.com/v1/forecast?latitude=-2.1962&longitude=-79.8862&hourly=temperature_2m&daily=uv_index_max&current_weather=true&timezone=auto";
   fetch(URL)
     .then((response) => response.json())
     .then((data) => {
-      // console.log(data);
-      // let timezone = data[timezone];
-      // let tzhtml = document.getElementById("zonetime");
-      // tzhtml.innerHTML =timezone
+      
+      loadcard(data)
       loadInocar();
       plot(data);
       plot2(data);
